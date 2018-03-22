@@ -1,0 +1,38 @@
+<%inherit file="base.htm" />
+
+<%block name="menu">
+
+<nav>
+  <div class="container-fluid navigation">
+    <div class="navbar-header">
+      <img
+           src = "${ STATIC_URL }homepage/media/guitar2.png" width="30" height="30" alt = "guitar icon">
+    </div>
+    <ul class="nav navbar-nav">
+      <li class = "${ 'active' if request.dmp.app == 'homepage' and request.dmp.page == 'index' else ''}"><a href="/">Home</a></li>
+      <li class = "${ 'active' if request.dmp.app == 'homepage' and request.dmp.page == 'About' else ''}"><a href="/About">About</a></li>
+      <li class = "${ 'active' if request.dmp.app == 'homepage' and request.dmp.page == 'Terms' else ''}"><a href="/Terms">Terms</a></li>
+      <li class = "${ 'active' if request.dmp.app == 'homepage' and request.dmp.page == 'FAQ' else ''}"><a href="/FAQ">FAQ</a></li>
+      <li class = "${ 'active' if request.dmp.app == 'homepage' and request.dmp.page == 'Contact' else ''}"><a href="/Contact">Contact</a></li>
+      <li class = "${ 'active' if request.dmp.app == 'homepage' and request.dmp.page == 'Sections' else ''}"><a href="/Sections">Sections</a></li>
+      <li class = "${ 'active' if request.dmp.app == 'catalog' and request.dmp.page == 'index' else ''}"><a href="/catalog/index">Catalog</a></li>
+      %if request.user.is_superuser:
+      <li class = ""><a href="/manager/products">Change Products</a></li>
+      %endif
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              ${ request.user.email if request.user.is_authenticated == True else 'Account'}
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu dropdown-content">
+              <li><a href="${ '/account/' if request.user.is_authenticated == True else '/account/login'}}"> ${ 'My Account' if request.user.is_authenticated == True else 'Login'}</a></li>
+              <li><a href="${ '/account/logout' if request.user.is_authenticated == True else '/account/signup'}}"> ${ 'Logout' if request.user.is_authenticated == True else 'Sign Up'}</a></li>
+            </ul>
+          </li>
+        </ul>
+  </div>
+</nav>
+
+</%block>
