@@ -1,0 +1,40 @@
+<%inherit file="/homepage/templates/app_base.htm" />
+
+<%block name="leftcontent">
+  <div class="row">
+    <div class="column left">
+        <ul>
+        <%! from catalog import models as cmod %>
+        <h4><a href="/catalog/index/" >All Products</a></h4>
+          % for c in cmod.Category.objects.all():
+            <li>
+              <h4><a href="/catalog/index/${c.id}" >${c.name}</a></h4>
+            </li>
+          % endfor
+        </ul>
+    </div>
+  </div>
+</%block>
+
+<%block name ="rightcontent">
+<h2 class="recent">Recently Viewed:</h2>
+<ul>
+  <%
+    if request.dmp.page == 'detail':
+      printlist = request.last_five[1:6]
+    else:
+      printlist = request.last_five[0:5]
+  %>
+  %for pic in printlist:
+      <a href="/catalog/detail/${pic.id}">
+        <li>
+          <img src= '${pic.image_url()}' class='thumb' alt= '${pic.name}'/>
+          <div class= proName>
+            ${pic.name}
+          </div>
+        </li>
+      </a>
+  %endfor
+</ul>
+
+</%block>

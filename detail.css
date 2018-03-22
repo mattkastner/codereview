@@ -1,0 +1,48 @@
+h4.utc-time {
+    color: #AA3333;
+}
+
+.column {
+    float: left;
+}
+
+.left, .right {
+    width: 25%;
+}
+
+.middle {
+    width: 50%;
+}
+
+.left > ul > li {
+  list-style: none;
+}
+
+ul.products li {
+    width: 33.3%;
+    display: inline-block;
+}
+
+ul {
+  list-style: none;
+}
+
+.img-thumbnail {
+  height: 60px;
+  width: 60px;
+  display: flex;
+}
+
+li > .price {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color:  red;
+  color: white;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+input {
+  width: 50px;
+}
