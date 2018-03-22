@@ -1,0 +1,32 @@
+<%inherit file="app_base.htm"/>
+
+<%block name="middlecontent">
+  <h1>${product.name}</h1>
+  <br></br>
+  <div class="row">
+    <div class="column">
+      <ul id="product_list">
+          %for image in product.image_urls():
+          <li>
+            <img src=${image} alt="Product" class="img-thumbnail">
+          </li>
+          %endfor
+      </ul>
+    </div>
+    <div class="column">
+      <ul id="product_info">
+        <img src=${product.image_url()} alt="Product" id="mainimage">
+        <div class="price">$${product.price}</div>
+        <div class="category">${product.category}</div>
+      </ul>
+    </div>
+    <div class="column">
+      %if product.TITLE == "Bulk":
+        <input type="number" name="count" placeholder="1">
+      %endif
+      <button type="button" class="btn btn-primary">BUY</button>
+      <p>${product.description}</p>
+      <p>Good draw knew bred ham busy his hour. Ask agreed answer rather joy nature admire wisdom. Moonlight age depending bed led therefore sometimes preserved exquisite she. An fail up so shot leaf wise in. Minuter highest his arrived for put and. Hopes lived by rooms oh in no death house. Contented direction september but end led excellent ourselves may. Ferrars few arrival his offered not charmed you. Offered anxious respect or he. On three thing chief years in money arise of.</p>
+    </div>
+  </div>
+</%block>
