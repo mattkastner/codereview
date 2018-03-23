@@ -1,0 +1,63 @@
+<%inherit file="/homepage/templates/base.htm" />
+<%! from catalog import models as cmod %>
+
+<%block name="menu">
+  <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav nav-pills">
+        <li class="nav-item ${ 'active' if request.dmp.page == 'index' else '' }"><a href="/index">Home</a></li>
+        <li class="nav-item ${ 'active' if request.dmp.page == 'terms' else '' }"><a href="/terms">Terms</a></li>
+        <li class="nav-item ${ 'active' if request.dmp.page == 'about' else '' }"><a href="/about">About</a></li>
+        <li class="nav-item ${ 'active' if request.dmp.page == 'contact' else '' }"><a href="/contact">Contact</a></li>
+        <li class="nav-item ${ 'active' if request.dmp.page == 'faq' else '' }"><a href="/faq">FAQ</a></li>
+        <li class="nav-item ${ 'active' if request.dmp.page == 'sections' else '' }"><a href="/sections">Sections</a></li>
+        <li class="nav-item ${ 'active' if request.dmp.page == 'catalog' else '' }"><a href="/catalog/index">Catalog</a></li>
+
+      </ul>
+      % if request.user.is_authenticated:
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="glyphicon glyphicon-log-in"></span> Log Out
+            </a>
+          <ul class="dropdown-menu">
+            <li><a href="/account/logout">Log out</a></li>
+            <li><a href="#">My Account</a></li>
+          </ul>
+        </li>
+      </ul>
+      % else:
+      <ul class="nav navbar-nav navbar-right nav-pills">
+        <li class="${ 'active' if request.dmp.page == 'account/signup' else ''}"><a href= "/account/signup">Sign Up</a></li>
+        <li class="${ 'active' if request.dmp.page == 'account/login' else ''}"><a href= "/account/login">Log In</a></li>
+      </ul>
+      % endif
+    </div>
+</%block>
+
+<%block name="left">
+    <ul id="side-nav">
+        <li class="${'active-category' if selectedCategory is None else ''}"><a href="/catalog/index/">All Products</a></li>
+        % for cat in cmod.Category.objects.order_by('name'):
+        <li class="${'active-category' if name == selectedCategory else ''}"><a href="/catalog/index/${cat.id}/">${ cat.name }</a></li>
+        % endfor
+    </ul>
+</%block>
+
+
+<%block name="right">
+<h2>Last Five Items</h2>
+    <%
+        if request.dmp.page=='detail':
+            realList=request.last_five [1:6]
+        else:
+            realList=request.last_five [0:5]
+    %>
+<ol>
+    % for p in realList:
+        <li>
+            <img class="rightImage" src="${p.image_url()}"/>
+            <p>${p.name}</p>
+        </li>
+    % endfor
+</ol>
+</%block>
